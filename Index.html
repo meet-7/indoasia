@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #c8e6f5;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 24px 0 48px;
+    }
+
+    .card {
+      width: 360px;
+      background: #ffffff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(15, 80, 140, 0.18);
+      text-align: center;
+    }
+
+    /* ── HEADER ── */
+    .card-header {
+      background: linear-gradient(155deg, #0e5fa0 0%, #1a85cc 100%);
+      padding: 32px 25px 60px;
+      position: relative;
+    }
+
+    .card-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='360' height='220' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='320' cy='30' r='80' fill='rgba(255,255,255,0.04)'/%3E%3Ccircle cx='40' cy='180' r='60' fill='rgba(255,255,255,0.04)'/%3E%3C/svg%3E") no-repeat center/cover;
+      pointer-events: none;
+    }
+
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 52px;
+      background: #ffffff;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+
+    .logo {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo::before {
+      content: "";
+      position: absolute;
+      width: 72%;
+      height: 72%;
+      background: #ffffff;
+      border-radius: 14px;
+      z-index: 0;
+    }
+
+    .logo img {
+      width: 150%;
+      height: 130%;
+      object-fit: contain;
+      border-radius: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-header h2 {
+      margin: 0 0 4px;
+      color: #ffffff;
+      font-size: 22px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.2px;
+    }
+
+    .role {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, 0.72);
+      position: relative;
+      z-index: 1;
+    }
+
+    .divider-line {
+      width: 36px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 2px;
+      margin: 10px auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .company {
+      font-weight: 700;
+      font-size: 15.5px;
+      color: #ffffff;
+      margin-top: 0;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.3px;
+    }
+
+    .highlight {
+      margin-top: 13px;
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── GRID ── */
+    .card-body {
+      background: #ffffff;
+      padding: 4px 22px 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .item {
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .circle {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      transition: 0.25s;
+    }
+
+    .c1 {
+      background: #dbeeff;
+    }
+
+    .c2 {
+      background: #d4f1e6;
+    }
+
+    .c3 {
+      background: #e4edff;
+    }
+
+    .c4 {
+      background: #d6f4fb;
+    }
+
+    .c5 {
+      background: #fff3d6;
+    }
+
+    .c6 {
+      background: #fde0f0;
+    }
+
+    .item:hover .circle {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(15, 80, 140, 0.15);
+    }
+
+    .circle svg {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .label {
+      margin-top: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #2d4a6b;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid #e0eefc;
+      font-size: 12px;
+      color: #6b8aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .footer svg {
+      width: 13px;
+      height: 13px;
+      opacity: 0.6;
+    }
+
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 12px
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: 0.2s
+    }
+
+    .social-btn:hover {
+      transform: translateY(-2px)
+    }
+
+    .social-ig {
+      background: #fde0f0;
+      color: #c13584
+    }
+
+    .social-li {
+      background: #dbeeff;
+      color: #0077b5
+    }
+
+    .social-btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+
+    <!-- Header -->
+    <div class="card-header">
+      <div class="logo"> <img src="Indo Asia Enterprise logo plain background.png" alt="Logo"></div>
+      <h2>Sanjiv Shah</h2>
+      <div class="role">Proprietor</div>
+      <div class="divider-line"></div>
+      <div class="company">Indo Asia Enterprise</div>
+      <div class="highlight">35+ Years of Trusted Service</div>
+    </div>
+
+    <!-- Grid -->
+    <div class="card-body">
+      <div class="grid">
+
+        <!-- Call -->
+        <a href="tel:9426768598" class="item">
+          <div class="circle c1">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.6 10.8C7.8 13.14 9.72 15.06 12.06 16.26L13.86 14.46C14.1 14.22 14.46 14.16 14.76 14.28C15.72 14.58 16.74 14.76 17.76 14.76C18.24 14.76 18.6 15.12 18.6 15.6V18.6C18.6 19.08 18.24 19.44 17.76 19.44C9.96 19.44 3.6 13.08 3.6 5.28C3.6 4.8 3.96 4.44 4.44 4.44H7.44C7.92 4.44 8.28 4.8 8.28 5.28C8.28 6.3 8.46 7.32 8.76 8.28C8.88 8.58 8.82 8.94 8.58 9.18L6.6 10.8Z"
+                fill="#1a85cc" />
+            </svg>
+          </div>
+          <div class="label">Call</div>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/9426768598?text=Hello%20I%20am%20interested%20in%20your%20bearings%20and%20industrial%20products"
+          class="item">
+          <div class="circle c2">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12C2 13.85 2.5 15.58 3.36 17.07L2 22L7.1 20.67C8.55 21.5 10.22 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.5 15.5C16.3 16.08 15.38 16.56 14.82 16.62C14.22 16.68 13.64 16.9 10.98 15.84C7.8 14.6 5.78 11.36 5.62 11.14C5.46 10.92 4.4 9.5 4.4 8.04C4.4 6.58 5.16 5.86 5.44 5.56C5.72 5.26 6.06 5.18 6.26 5.18C6.46 5.18 6.66 5.18 6.84 5.19C7.04 5.2 7.3 5.12 7.56 5.76C7.82 6.4 8.44 7.86 8.52 8.02C8.6 8.18 8.64 8.36 8.52 8.58C8.4 8.8 8.36 8.94 8.18 9.14C8 9.34 7.8 9.58 7.64 9.74C7.46 9.92 7.28 10.12 7.48 10.46C7.68 10.8 8.44 12.04 9.58 13.04C11.04 14.32 12.26 14.72 12.62 14.88C12.98 15.04 13.18 15.02 13.38 14.78C13.58 14.54 14.32 13.68 14.54 13.32C14.76 12.96 15 13.02 15.32 13.14C15.64 13.26 17.1 13.98 17.44 14.14C17.78 14.3 18.0 14.38 18.08 14.52C18.16 14.66 18.16 15.24 15.94 15.86L16.5 15.5Z"
+                fill="#25b264" />
+            </svg>
+          </div>
+          <div class="label">WhatsApp</div>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:mail_sanjivshah@yahoo.com" class="item">
+          <div class="circle c3">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"
+                fill="#4a6ef5" />
+            </svg>
+          </div>
+          <div class="label">Email</div>
+        </a>
+
+        <!-- Website -->
+        <a href="https://www.indoasiaenterprise.com" target="_blank" class="item">
+          <div class="circle c4">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.44 4 16.08 4 12C4 11.38 4.08 10.79 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10H10C10.55 10 11 9.55 11 9V7H13C14.1 7 15 6.1 15 5V4.59C17.93 5.77 20 8.65 20 12C20 14.08 19.19 15.98 17.9 17.39Z"
+                fill="#0099bb" />
+            </svg>
+          </div>
+          <div class="label">Website</div>
+        </a>
+
+        <!-- Location -->
+        <a href="https://www.google.com/maps/search/?api=1&query=Indo+Asia+Enterprise+Ahmedabad" target="_blank"
+          class="item">
+          <div class="circle c5">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z"
+                fill="#f5a623" />
+            </svg>
+          </div>
+          <div class="label">Location</div>
+        </a>
+
+        <!-- Save -->
+        <a href="contact.vcf" download class="item">
+          <div class="circle c6">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM12 17C10.34 17 9 15.66 9 14C9 12.34 10.34 11 12 11C13.66 11 15 12.34 15 14C15 15.66 13.66 17 12 17ZM15 7H7C6.45 7 6 6.55 6 6C6 5.45 6.45 5 7 5H15C15.55 5 16 5.45 16 6C16 6.55 15.55 7 15 7Z"
+                fill="#d44fa0" />
+            </svg>
+          </div>
+          <div class="label">Save</div>
+        </a>
+
+        <!-- Share -->
+        <a href="#" class="item" onclick="shareCard(event)">
+          <div class="circle c1">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M18 16.08C17.24 16.08 16.56 16.38 16.04 16.85L8.91 12.7C8.96 12.47 9 12.24 9 12C9 11.76 8.96 11.53 8.91 11.3L15.96 7.19C16.5 7.69 17.21 8 18 8C19.66 8 21 6.66 21 5C21 3.34 19.66 2 18 2C16.34 2 15 3.34 15 5C15 5.24 15.04 5.47 15.09 5.7L8.04 9.81C7.5 9.31 6.79 9 6 9C4.34 9 3 10.34 3 12C3 13.66 4.34 15 6 15C6.79 15 7.5 14.69 8.04 14.19L15.16 18.35C15.11 18.56 15.08 18.78 15.08 19C15.08 20.61 16.39 21.92 18 21.92C19.61 21.92 20.92 20.61 20.92 19C20.92 17.39 19.61 16.08 18 16.08Z"
+                fill="#1a85cc" />
+            </svg>
+          </div>
+          <div class="label">Share</div>
+        </a>
+
+        <!-- Inquiry -->
+        <a href="inquiry.html" class="item">
+          <div class="circle c2">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2ZM12 14C11.45 14 11 13.55 11 13V12.5C11 11.95 11.45 11.5 12 11.5C12.55 11.5 13 11.05 13 10.5C13 9.95 12.55 9.5 12 9.5C11.45 9.5 11 9.95 11 10.5H9C9 8.84 10.34 7.5 12 7.5C13.66 7.5 15 8.84 15 10.5C15 11.97 13.97 13.2 12.57 13.46L12.5 13.5C12.22 13.5 12 13.72 12 14ZM12 16.5C11.45 16.5 11 16.05 11 15.5C11 14.95 11.45 14.5 12 14.5C12.55 14.5 13 14.95 13 15.5C13 16.05 12.55 16.5 12 16.5Z"
+                fill="#25b264" />
+            </svg>
+          </div>
+          <div class="label">Inquiry</div>
+        </a>
+
+        <!-- Review -->
+        <a href="https://www.google.com/search?q=Indo+Asia+Enterprise+Ahmedabad" target="_blank" class="item">
+          <div class="circle c3">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.62L12 2L9.19 8.62L2 9.24L7.46 13.97L5.82 21L12 17.27Z"
+                fill="#4a6ef5" />
+            </svg>
+          </div>
+          <div class="label">Review</div>
+        </a>
+
+      </div>
+
+      <div class="footer" style="flex-direction:column;gap:8px;text-align:center;line-height:1.6;">
+  <div style="display:flex;align-items:flex-start;justify-content:center;gap:6px;">
+    <svg viewBox="0 0 24 24" fill="none" style="width:13px;height:13px;opacity:0.6;margin-top:3px;flex-shrink:0;">
+      <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="#6b8aaa"/>
+    </svg>
+    <span>Shop No.237, 3rd Floor Khara Kuwa Pole,<br>Gandhi Road, Ahmedabad – 380001</span>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:6px;">
+    <svg viewBox="0 0 24 24" fill="none" style="width:13px;height:13px;opacity:0.6;flex-shrink:0;">
+      <path d="M6.6 10.8C7.8 13.14 9.72 15.06 12.06 16.26L13.86 14.46C14.1 14.22 14.46 14.16 14.76 14.28C15.72 14.58 16.74 14.76 17.76 14.76C18.24 14.76 18.6 15.12 18.6 15.6V18.6C18.6 19.08 18.24 19.44 17.76 19.44C9.96 19.44 3.6 13.08 3.6 5.28C3.6 4.8 3.96 4.44 4.44 4.44H7.44C7.92 4.44 8.28 4.8 8.28 5.28C8.28 6.3 8.46 7.32 8.76 8.28C8.88 8.58 8.82 8.94 8.58 9.18L6.6 10.8Z" fill="#6b8aaa"/>
+    </svg>
+    <a href="tel:9426768598" style="color:#6b8aaa;text-decoration:none;">+91 94267 68598</a>
+    <span style="opacity:0.4;">|</span>
+    <a href="tel:9265061057" style="color:#6b8aaa;text-decoration:none;">+91 92650 61057</a>
+  </div>
+
+  <div style="opacity:0.7;">10 AM – 7 PM</div>
+</div>
+
+      <!-- Social links row -->
+      <div class="social-row">
+        <a href="https://www.instagram.com/indoasiaenterprise?igsh=OTkyNXRrNWNjaG9t" target="_blank" class="social-btn social-ig">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#c13584" stroke-width="2" />
+            <circle cx="12" cy="12" r="4" stroke="#c13584" stroke-width="2" />
+            <circle cx="17.5" cy="6.5" r="1" fill="#c13584" />
+          </svg>
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/company/indo-asia-enterprise/" target="_blank" class="social-btn social-li">
+          <svg viewBox="0 0 24 24" fill="#0077b5">
+            <path
+              d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S.02 4.88.02 3.5 1.13 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V24h-4V8.5zm7.5 0h3.83v2.14h.05C13.1 9.05 14.87 8 17 8c4.27 0 5.06 2.81 5.06 6.47V24H18V15.3c0-2.08-.04-4.75-2.9-4.75-2.9 0-3.34 2.26-3.34 4.6V24H8V8.5z" />
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function shareCard(e) {
+      e.preventDefault();
+      if (navigator.share) {
+        navigator.share({
+          title: "Sanjiv Shah - Indo Asia Enterprise",
+          text: "Contact details of Sanjiv Shah",
+          url: window.location.href
+        });
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert("Link copied! You can now share it.");
+      }
+    }
+  </script>
+</body>
+
+</html>
